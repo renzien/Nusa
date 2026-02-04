@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, {useState, useEffect} from "react";
+import {
+  LayoutDashboard, Map as MapIcon, Box, Home, MessageSquare,
+  FileText, ChevronLeft, ChevronRight, Bell, User, Menu
+} from 'lucide-react';
 
-function App() {
-  const [count, setCount] = useState(0)
+// Import Component yang udah dibuat
+import SidebarItem from "./components/SidebarItem";
+import StatCard from "./components/StatCard";
+import AlertCard from "./components/AlertCard";
+import MapView from "./components/MapView";
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+// Data Dummy
+const UPDATES = [
+  {
+    id: 1,
+    title: "Dam Water Level Critical",
+    status: "CRITICAL",
+    desc: "Katulampa Weir water level has exceeded 200cm. Immediate downstream evacuation advised for Ciliwung riverbanks.",
+    source: "BPBD Jakarta",
+    time: "2 min ago",
+    location: "Katulampa, Bogor",
+    type: "flood"
+  },
+  {
+    id: 2,
+    title: "Road Access Blocked",
+    status: "WARNING",
+    desc: "Puncak Pass Road (Cianjur-Bogor) blocked due to minor landslide. Alternative routes being assessed.",
+    source: "Dishub",
+    time: "8 min ago",
+    location: "Puncak Pass",
+    type: "warning"
+  },
+  {
+    id: 3,
+    title: "Basarnas Team Deployed",
+    status: "INFO",
+    desc: "3 additional SAR teams have been dispatched from Jakarta HQ to flood-affected areas in Bekasi.",
+    source: "Basarnas Command",
+    time: "15 min ago",
+    location: "Bekasi Timur",
+    type: "info"
+  }
+];
+
+export default function App() {
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Logic Jam
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  
 }
-
-export default App
